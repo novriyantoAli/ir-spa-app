@@ -5,6 +5,11 @@ import PaketView from '../views/paket/View.vue'
 import PaketAdd from '../views/paket/Add.vue'
 import PaketEdit from '../views/paket/Edit.vue'
 
+import ProfilView from '../views/profil/View.vue'
+import ProfilAdd from '../views/profil/Add.vue'
+import ProfilRCView from '../views/profil/ViewRC.vue'
+import ProfilRRView from '../views/profil/ViewRR.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -35,6 +40,26 @@ const router = createRouter({
       path: '/paket/:id/ubah',
       name: 'ubahPaket',
       component: PaketEdit
+    },
+    {
+      path: '/profil',
+      name: 'profil',
+      component: ProfilView
+    },
+    {
+      path: '/profil/buat',
+      name: 'buatProfil',
+      component: ProfilAdd
+    },
+    {
+      path: '/profil/radcheck/:groupname',
+      name: 'profilRC',
+      component: ProfilRCView
+    },
+    {
+      path: '/profil/radreply/:groupname',
+      name: 'profilRR',
+      component: ProfilRRView
     }
   ]
 })

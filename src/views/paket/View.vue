@@ -29,8 +29,8 @@
               <td>{{ paket.Price }}</td>
               <td>{{ paket.Profile }}</td>
               <td>
-                <RouterLink :to="{ path: '/paket/' + paket.ID + '/ubah'}" class="btn btn-success">Ubah</RouterLink>
-                <button class="btn btn-danger" type="button">Hapus</button>
+                <RouterLink :to="{ path: '/paket/' + paket.ID + '/ubah'}" class="btn btn-success mx-2">Ubah</RouterLink>
+                <button @click="deletePaket(paket.ID)" class="btn btn-danger mx-2" type="button">Hapus</button>
               </td>
             </tr>
           </tbody>
@@ -55,10 +55,19 @@ export default {
     },
     methods: {
         getPakets() {
-            axios.get('http://127.0.0.1:4211/api/v1/product').then(res => {
-                this.pakets = res.data.data;
-                console.log(this.pakets[0]);
+          axios.get('http://127.0.0.1:4211/api/v1/product').then(res => {
+            this.pakets = res.data.data;
+            console.log(this.pakets[0]);
+          });
+        },
+        deletePaket(id) {
+          if (confirm('Apakah anda ingin menghapus data ini..?')) {
+            axios.delete(`http://127.0.0.1:4211/api/v1/product/${id}`).then(res => {
+              alert(res.data.message);
+              location.reload();
+              // this.$router.push({ name: 'paket' });
             });
+          }
         }
     },
     components: { RouterLink }

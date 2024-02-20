@@ -23,6 +23,9 @@ import HelloWorld from './components/HelloWorld.vue'
               <li class="nav-item">
                 <RouterLink class="nav-link" to="/paket">Paket</RouterLink>
               </li>
+              <li class="nav-item">
+                <RouterLink class="nav-link" to="/profil">Profil</RouterLink>
+              </li>
             </ul>
             
           </div>

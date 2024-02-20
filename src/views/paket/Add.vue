@@ -59,10 +59,7 @@ export default {
         save(){
             var mythis = this;
             axios.post('http://127.0.0.1:4211/api/v1/product', this.model.paket).then(res => {
-                console.log(res);
-
                 alert(res.data.message);
-
                 this.model.paket = {
                     name: '',
                     val_unit: '',
@@ -70,6 +67,7 @@ export default {
                     price: 0,
                     profile: ''
                 }
+                this.$router.push({ name: 'paket' });
             }).catch(function(error){
                 if(error.response){
                     if (error.response.status === 422) {

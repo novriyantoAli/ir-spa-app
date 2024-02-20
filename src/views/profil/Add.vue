@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h4>Ubah Paket</h4>
+                <h4>Buat Paket</h4>
             </div>
             <div class="card-body">
                 <ul class="alert alert-warning" v-if="Object.keys(this.errorList).length > 0">
@@ -31,7 +31,7 @@
                     <input type="text" v-model="model.paket.profile" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <button @click="update" type="button" class="btn btn-primary">Ubah</button>
+                    <button @click="save" type="button" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
@@ -44,7 +44,6 @@
         data(){
             return {
                 errorList: '',
-                id : '',
                 model: {
                     paket: {
                         name: '',
@@ -56,30 +55,14 @@
                 }
             }
         },
-        mounted(){
-            this.getDetail(this.$route.params.id);
-        },
         methods: {
-            getDetail(id){
-                axios.get('http://127.0.0.1:4211/api/v1/product/' + id + '/detail').then(res => {
-                    console.log(res.data.data[0]);
-                    this.model.paket = res.data.data[0];
-                }).catch(function(error){
-                    if(error.response){
-                        if (error.response.status === 422) {
-                            alert(error.response.data.message);
-                        }
-                    } else if (error.request) {
-                        console.log(error.request);
-                    } else {
-                        console.log("Error: ", error.message);
-                    }
-                });
-            },
-            update(){
+            save(){
                 var mythis = this;
-                axios.put(`http://127.0.0.1:4211/api/v1/product/${this.$route.params.id}`, this.model.paket).then(res => {
+                axios.post('http://127.0.0.1:4211/api/v1/product', this.model.paket).then(res => {
+                    console.log(res);
+    
                     alert(res.data.message);
+    
                     this.model.paket = {
                         name: '',
                         val_unit: '',
@@ -87,7 +70,6 @@
                         price: 0,
                         profile: ''
                     }
-                    this.$router.push({ name: 'paket' });
                 }).catch(function(error){
                     if(error.response){
                         if (error.response.status === 422) {
@@ -103,3 +85,4 @@
         }
     }
     </script>
+      
