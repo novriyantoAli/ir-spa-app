@@ -2,7 +2,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <h4>Buat Paket</h4>
+                <h4>Ubah Paket</h4>
             </div>
             <div class="card-body">
                 <ul class="alert alert-warning" v-if="Object.keys(this.errorList).length > 0">
@@ -31,7 +31,7 @@
                     <input type="text" v-model="model.paket.profile" class="form-control" />
                 </div>
                 <div class="mb-3">
-                    <button @click="save" type="button" class="btn btn-primary">Simpan</button>
+                    <button @click="update" type="button" class="btn btn-primary">Simpan</button>
                 </div>
             </div>
         </div>
@@ -44,6 +44,7 @@
         data(){
             return {
                 errorList: '',
+                id : '',
                 model: {
                     paket: {
                         name: '',
@@ -56,14 +57,29 @@
             }
         },
         mounted(){
-            console.log(this.$route.params.id);
+            this.getDetail(this.$route.params.id);
+            this.id = this.$route.params.id;
         },
         methods: {
-            get(id){
+            getDetail(id){
+                axios.get('http://127.0.0.1:4211/api/v1/product/' + id + '/detail').then(res => {
+                    console.log(res.data.data[0]);
+                    this.model.paket = res.data.data[0];
+                }).catch(function(error){
+                    if(error.response){
+                        if (error.response.status === 422) {
+                            alert(error.response.data.message);
+                        }
+                    } else if (error.request) {
+                        console.log(error.request);
+                    } else {
+                        console.log("Error: ", error.message);
+                    }
+                });
             },
-            save(){
+            update(id){
                 var mythis = this;
-                axios.post('http://127.0.0.1:4211/api/v1/product', this.model.paket).then(res => {
+                axios.put('http://127.0.0.1:4211/api/v1/product/' + id, this.model.paket).then(res => {
                     console.log(res);
     
                     alert(res.data.message);
@@ -78,6 +94,7 @@
                 }).catch(function(error){
                     if(error.response){
                         if (error.response.status === 422) {
+
                             mythis.errorList = error.response.data.data;
                         }
                     } else if (error.request) {
