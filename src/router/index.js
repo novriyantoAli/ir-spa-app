@@ -10,6 +10,9 @@ import ProfilAdd from '../views/profil/Add.vue'
 import ProfilRCView from '../views/profil/ViewRC.vue'
 import ProfilRRView from '../views/profil/ViewRR.vue'
 
+import VoucherView from '../views/voucher/View.vue'
+import VoucherAdd from '../views/voucher/Add.vue'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -60,6 +63,16 @@ const router = createRouter({
       path: '/profil/radreply/:groupname',
       name: 'profilRR',
       component: ProfilRRView
+    },
+    {
+      path: '/voucher',
+      name: 'voucher',
+      component: VoucherView
+    },
+    {
+      path: '/voucher/buat',
+      name: 'buatVoucher',
+      component: VoucherAdd
     }
   ]
 })

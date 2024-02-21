@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
@@ -25,6 +24,9 @@ import HelloWorld from './components/HelloWorld.vue'
               </li>
               <li class="nav-item">
                 <RouterLink class="nav-link" to="/profil">Profil</RouterLink>
+              </li>
+              <li class="nav-item">
+                <RouterLink class="nav-link" to="/voucher">Voucher</RouterLink>
               </li>
             </ul>
             

@@ -57,7 +57,6 @@ export default {
         getPakets() {
           axios.get('http://127.0.0.1:4211/api/v1/product').then(res => {
             this.pakets = res.data.data;
-            console.log(this.pakets[0]);
           });
         },
         deletePaket(id) {
@@ -65,7 +64,6 @@ export default {
             axios.delete(`http://127.0.0.1:4211/api/v1/product/${id}`).then(res => {
               alert(res.data.message);
               location.reload();
-              // this.$router.push({ name: 'paket' });
             });
           }
         }

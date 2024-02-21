@@ -11,24 +11,12 @@
                     </li>
                 </ul>
                 <div class="mb-3">
-                    <label for="">Nama</label>
-                    <input type="text" v-model="model.paket.name" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="">Satuan</label>
-                    <input type="text" v-model="model.paket.val_unit" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="">Nilai</label>
-                    <input type="number" v-model="model.paket.val_val" class="form-control" />
-                </div>
-                <div class="mb-3">
-                    <label for="">Harga</label>
-                    <input type="number" v-model="model.paket.price" class="form-control" />
-                </div>
-                <div class="mb-3">
                     <label for="">Profil</label>
-                    <input type="text" v-model="model.paket.profile" class="form-control" />
+                    <input type="text" v-model="model.profil.username" class="form-control" />
+                </div>
+                <div class="mb-3">
+                    <label for="">Prioritas</label>
+                    <input type="number" v-model="model.profil.priority" class="form-control" />
                 </div>
                 <div class="mb-3">
                     <button @click="save" type="button" class="btn btn-primary">Simpan</button>
@@ -40,17 +28,14 @@
     <script>
     import axios from 'axios';
     export default {
-        name: 'buatPaket',
+        name: 'buatProfil',
         data(){
             return {
                 errorList: '',
                 model: {
-                    paket: {
-                        name: '',
-                        val_unit: '',
-                        val_val: 0,
-                        price: 0,
-                        profile: ''
+                    profil: {
+                        username: '',
+                        priority: 1
                     }
                 }
             }
@@ -58,18 +43,15 @@
         methods: {
             save(){
                 var mythis = this;
-                axios.post('http://127.0.0.1:4211/api/v1/product', this.model.paket).then(res => {
-                    console.log(res);
-    
+                axios.post('http://127.0.0.1:4211/api/v1/profile', this.model.profil).then(res => {
                     alert(res.data.message);
     
-                    this.model.paket = {
-                        name: '',
-                        val_unit: '',
-                        val_val: 0,
-                        price: 0,
-                        profile: ''
+                    this.model.profil = {
+                        username: '',
+                        priority: 1
                     }
+
+                    this.$router.push({ name: 'profil' });
                 }).catch(function(error){
                     if(error.response){
                         if (error.response.status === 422) {
